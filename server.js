@@ -22,7 +22,7 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => console.log(`successfully connected to ${config.mongodb.db} DB`))
-  .catch((err) => console.error(err));
+  .catch((err) => console.error(config.mongodb.uri, "ERROR: ", err));
 
 // Initializes application
 const app = express();
@@ -38,6 +38,8 @@ app.use(bodyParser.json());
 
 app.get("/", (req, res) => res.status(200).end());
 
+
+app.get("/hello", (req, res) => res.status(200).send({message: 'hello'}))
 app.use(UserController);
 
 // Create a Apollo Server
